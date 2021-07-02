@@ -69,7 +69,7 @@
     "lodash": "^4.17.4",
     "mysql": "^2.13.0",
     "mz": "^2.6.0",
-    "pg-promise": "^6.3.6",
+    "pg-promise": "10.5.2",
     "typescript": "^2.7.1",
     "typescript-formatter": "^7.0.1",
     "yargs": "^8.0.1"
