@@ -54,7 +54,13 @@ export async function inferSchema(
   const tables = await db.allTables();
   const interfaces = tables
     .sort((a, b) => a.name.localeCompare(b.name))
-    .filter(table => !ignoreTables.includes(table.name))
+    // .filter(table => !ignoreTables.includes(table.name))
+    .filter(table => {
+      return !ignoreTables.some(pattern => {
+        const regex = new RegExp("^" + pattern.replace(/\*/g, ".*") + "$");
+        return regex.test(table.name);
+      });
+    })
     .map(table => tableToTS(table.name, table.table, ignoreColumns, toCamelCase, useQuotes));
   const code = [header(interfaces.some(i => i.includes("JSONValue"))), ...interfaces].join("\n");
   return pretty(`
